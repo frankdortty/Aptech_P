@@ -1,0 +1,78 @@
+<html>
+<head>
+<title>{% block title %}{% endblock title %}SHIRItori</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="{{ STATIC_URL }}img/icon_small.ico" rel="shortcut icon">
+<link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+<link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="{{ STATIC_URL }}css/docs.css" rel="stylesheet">
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21857766-3']);
+  _gaq.push(['_setDomainName', 'playshiritori.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body data-spy="scroll" data-target=".subnav" data-offset="50">
+<!-- Navbar -->
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="/"><img src="{{ STATIC_URL }}img/logo_small_white.png"></a>
+      <div class="nav-collapse">
+      <ul class="nav" id="tab">
+        <li class="{% block active_home %}{% endblock active_home %}">
+          <a href="/">Home</a>
+        </li>
+        <li class="{% block active_newgame %}{% endblock active_newgame %}">
+          <a href="/newgame/">New Game</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="user-box dropdown" id="id-user-box">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#id-user-box">
+            {{ user.username }}&nbsp;<b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="/logout/">Log Out</a></li>
+          </ul>
+        </li>
+        {% else %}
+        <li class="user-box">
+          <a href="/login-form/">Login</a>
+        </li>
+        {% endif %}
+      </ul>
+      </div><!-- /nav-collapse -->
+    </div><!-- /container -->
+  </div><!-- /navbar-inner -->
+</div><!-- /navbar -->
+
+{% block container %}
+{% endblock container %}
+
+<footer class="footer">
+  <p class="pull-right"><a href="#">Back to top</a></p>
+</footer>
+</div><!-- /container -->
+
+<!-- JavaScript -->
+<script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
+<script src="{{ STATIC_URL }}js/bootstrap-tooltip.js"></script>
+<script src="{{ STATIC_URL }}js/bootstrap-dropdown.js"></script>
+<script type="text/javascript">
+$(function() {
+  $('.dropdown-toggle').dropdown();
+});
+</script>
+{% block custom_js %}
+{% endblock custom_js %}
+</body>
+</html>

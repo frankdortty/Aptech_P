@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Game | {% endblock title %}
+
+{% block active_home %}{% endblock active_home %}
+{% block active_newgame %}{% endblock active_newgame %}
+
+{% block container %}
+<div class="container">
+<header class="jumbotron subhead">
+  <h1>{{ game.roomname }}</h1>
+</header>
+
+<hr>
+
+<div class="game">
+  {% if error_message %}
+  <div class="alert alert-error">
+    {{ error_message }}
+  </div>
+  {% endif %}
+  <div class="row">
+    <div class="span9">
+      <div class="gamecanvas">
+        {% for his in history %}
+        <div class="gameword{%if forloop.first %} gameword-first{% endif %}">
+          <div class="wordleft"{%if forloop.first %} id="id_wordleft_first"{% endif %}>{{ his.word.hiragana }}</div>&nbsp;
+          <div class="wordright">{{ his.word.midashigo }} by {{ his.player.name }}</div>
+        </div><!-- /gameword -->
+        {% endfor %}
+      </div><!-- /gamecanvas -->
+      <div class="gameinput">
+      {% if turn_player == player %}
+      <form action="/game/{{ game_player.id }}/add/" method="post">
+        {% csrf_token %}
+        <input type="text" class="span7" name="word" id="id_word" autocomplete="off">&nbsp;
+        <button type="submit" class="pull-right span2 btn btn-large btn-primary">しりとり</button>
+      </form>
+      {% else %}
+      <input type="text" class="span7 disabled" name="word" id="id_word" autocomplete="off">&nbsp;
+      <button type="submit" class="pull-right span2 btn btn-large btn-primary disabled">しりとり</button>
+      {% endif %}
+      </div><!-- /gameinput -->
+    </div><!-- /span9 -->
+    <div class="span3 player-list">
+      {% if turn_player.id == player.id %}
+      <div class="alert">It's your turn</div>
+      {% else %}
+      <div class="alert alert-info">It's {{ turn_player.name }}'s turn</div>
+      {% endif %}
+      <h3>Players in this room</h3>
+      {% for x in player_list %}
+      <p>
+        {% if x.id == player.id %}
+        <i class="icon-user"></i>&nbsp;<span class="you">{{ x.name }} さん</span>
+        <span class="pull-right"><i class="icon-leaf"></i></span><br>
+        <a href="/game/{{ game_player.id }}/leave/" class="pull-right"><i class="icon-home"></i>&nbsp;leave this room</a><br>
+        {% else %}
+        <i class="icon-user"></i>&nbsp;{{ x.name }} さん
+        <span class="pull-right"><i class="icon-leaf"></i></span><br>
+        {% endif %}
+      </p>
+      {% endfor %}
+      <hr>
+      <h3>Invite your friend</h3>
+      <p>
+        Link for join page<br>
+        <i class="icon-file" id="icon-file"></i>&nbsp;<input type="text" class="input-join" value="http://playshiritori.com/newgame/join/{{ game_player.id }}/" disabled>
+      </p>
+    </div><!-- /span3 -->
+  </div><!-- /row -->
+</div><!-- /game -->
+{% endblock container %}
+
+{% block custom_js %}
+<script type="text/javascript">
+$("#icon-file").tooltip({
+  placement: "left",
+  title: "Click to select the URL",
+});
+$("#icon-file").click(function(){
+  $(".input-join").select();
+});
+
+function checkupdate(hisLength) {
+  $.ajax({
+    type: 'GET',
+    url: "/game/{{ game_player.id }}/check/{{ history|length }}/{{ player_list|length }}/",
+    success: function(data){
+      console.log(data);
+      if (data.updated) {
+        window.location.href = "/game/{{ game_player.id }}/";
+      }
+    }
+  });
+}
+
+$(document).ready(function(){
+  var interval = setInterval("checkupdate()", 6000);
+  checkupdate();
+  lastLetter();
+  var form = document.forms[0];
+  if (form) {
+    form.word.focus();
+  }
+});
+
+function lastLetter() {
+  var node = document.getElementById("id_wordleft_first");
+  if (!node) {
+    return;
+  }
+  word = node.innerHTML;
+  last = word.slice(-1);
+  if (last == "ー") {
+    last2 = word.slice(-2, -1);
+    lastHtml = '<span style="color: #F89406;">' + last2 + '</span>';
+    word = word.slice(0, -2) + lastHtml + last;
+  } else {
+    lastHtml = '<span style="color: #F89406;">' + last + '</span>';
+    word = word.slice(0, -1) + lastHtml;
+  }
+  node.innerHTML = word;
+}
+</script>
+{% endblock custom_js %}

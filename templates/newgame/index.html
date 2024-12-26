@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}New Game | {% endblock title %}
+
+{% block active_home %}{% endblock active_home %}
+{% block active_newgame %}active{% endblock active_newgame %}
+
+{% block container %}
+<div class="container">
+<header class="jumbotron subhead">
+  <h1>Create New Game</h1>
+  <p class="lead">新しいしりとりゲームをつくるよ</p>
+</header>
+
+<hr>
+
+<div class="new-game">
+  <div class="alert alert-info">
+    現在 {{ game_number }} 個のゲームが進行中だよ！
+  </div><!-- /alert info -->
+  <form class="form-horizontal" action="/newgame/" method="post">
+    {% csrf_token %}
+    <fieldset>
+    {{ form.as_bootstrap_horizontal }}
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Create New Game</button>
+    </div>
+    </fieldset>
+  </form>
+</div><!-- /new-game -->
+{% endblock container %}
+
+{% block custom_js %}
+{% endblock custom_js %}

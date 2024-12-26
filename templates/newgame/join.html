@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Join Game | {% endblock title %}
+
+{% block active_home %}{% endblock active_home %}
+{% block active_newgame %}{% endblock active_newgame %}
+
+{% block container %}
+<div class="container">
+<header class="jumbotron subhead">
+  <h1>Join Friend's Game</h1>
+  <p class="lead">ログインして {{ owner_name }} さんのゲームに参加しよう！</p>
+</header>
+
+<hr>
+
+<div class="new-game well">
+  <a href="/login-form/?next=/newgame/join/{{ game_player_id }}/" class="btn btn-primary btn-large">Login and Join The Game</a>
+</div><!-- /new-game -->
+{% endblock container %}
+
+{% block custom_js %}
+{% endblock custom_js %}

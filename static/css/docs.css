@@ -1,0 +1,233 @@
+/* Body and structure
+-------------------------------------------------- */
+body {
+  position: relative;
+  padding-top: 90px;
+  background-color: #fff;
+  background-image: url(../img/bg_green.png);
+  background-repeat: repeat;
+  background-position: 0 40px;
+}
+
+/* Faded out hr */
+hr.soften {
+  height: 1px;
+  margin: 54px 0;
+  background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.1), rgba(0,0,0,0));
+  background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.1), rgba(0,0,0,0));
+  background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.1), rgba(0,0,0,0));
+  background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.1), rgba(0,0,0,0));
+  border: 0;
+}
+
+/* Navibar, Navilogo */
+.navbar .brand {
+    padding: 5px 20px 5px;
+}
+/* Navbar */
+.navbar .nav {
+    float: none;
+}
+
+/* UserBox */
+.navbar .nav .user-box {
+    float: right;
+}
+
+
+/* Jumbotrons
+-------------------------------------------------- */
+.jumbotron {
+  position: relative;
+}
+.jumbotron h1 {
+  margin-bottom: 9px;
+  font-size: 81px;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.jumbotron p {
+  margin-bottom: 18px;
+  font-weight: 300;
+}
+.jumbotron .btn-large {
+  font-size: 20px;
+  font-weight: normal;
+  padding: 14px 24px;
+  margin-right: 10px;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+
+/* Masthead (docs home) */
+.masthead {
+  padding-top: 36px;
+  margin-bottom: 72px;
+}
+.masthead h1,
+.masthead p {
+  text-align: center;
+}
+.masthead h1 {
+  margin-bottom: 18px;
+}
+.masthead p {
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 30px;
+  line-height: 36px;
+}
+
+/* Specific jumbotrons
+------------------------- */
+/* supporting docs pages */
+.subhead {
+  padding-bottom: 0;
+  margin-bottom: 9px;
+}
+.subhead h1 {
+  font-size: 54px;
+}
+
+/* Game List */
+.game-list h1 {
+  margin: 36px 0 27px;
+  font-size: 40px;
+  font-weight: 300;
+  text-align: center;
+}
+.game-list h3 {
+  font-weight: 300;
+  margin-bottom: 9px;
+}
+.game-list p {
+  margin-left: 15px;
+}
+.show-grid {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.show-grid .span3 {
+  background-color: #eee;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+  min-height: 30px;
+  line-height: 30px;
+}
+.show-grid .span2 {
+  min-height: 30px;
+  line-height: 30px;
+}
+.rooms {
+  margin: 20px;
+  overflow: hidden;
+}
+
+/** newgame **/
+.new-game .span3 {
+  min-height: 30px;
+  line-height: 30px;
+}
+
+/** game **/
+.game .span3 {
+  background-color: #eee;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+}
+.player-list h3,
+.player-list p {
+  margin: 15px;
+}
+.player-list .alert {
+  margin: 10px;
+}
+.you {
+  color: #46a546;
+}
+.gamecanvas {
+  background: #DFF0D8;
+  padding: 10px 0px 10 0px;
+  margin: 0 0 20px;
+  width: 100%;
+  height: 200px;
+  overflow: auto;
+  position: relative;
+}
+.gameword {
+  padding: 0 0 0 15px;
+  margin: 0 10px 10px 10px;
+  border-left: 5px solid #FFC40D;
+  border-bottom: 1px dotted #CCC;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 22.5px;
+}
+.gameword-first {
+  border-left: 5px solid #f89406;
+}
+.gameword .wordleft {
+  float: left;
+}
+.gameword .wordright {
+  float: right;
+  color: #999999;
+}
+.gameinput .span7 {
+  min-height: 43px;
+  float: left;
+}
+input[disabled].input-join {
+  width: 170px;
+  min-height: 25px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  cursor: default;
+}
+.player-list .icon-file {
+  margin-top: 3px;
+}
+
+/* login */
+.loginnav {
+  padding-top: 10px;
+  margin: 0px;
+  list-style: none;
+}
+.loginnav li {
+  margin: 20px;
+}
+.login .span3 {
+  min-height: 30px;
+  line-height: 30px;
+}
+.errorlist {
+  list-style: none;
+  margin: 0;
+}
+.login-form {
+  clear: both;
+}
+
+/* Footer
+-------------------------------------------------- */
+.footer {
+  margin-top: 45px;
+  padding: 35px 0 36px;
+  border-top: 1px solid #e5e5e5;
+}
+.footer p {
+  margin-bottom: 0;
+  color: #555;
+}
+
+/* for Responsive */
+@media (max-width: 980px) {
+  body {
+    padding-top: 0;
+  }
+}
+

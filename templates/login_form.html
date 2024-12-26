@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Log In | {% endblock title %}
+
+{% block active_home %}{% endblock active_home %}
+{% block active_newgame %}{% endblock active_newgame %}
+
+{% block container %}
+<div class="container">
+<header class="jumbotron subhead">
+  <h1>Log in</h1>
+  <p class="lead">ログイン</p>
+</header>
+
+<hr>
+
+<div class="login">
+  <div class="row">
+    <div class="span6">
+      <h3>Log in with another account</h3>
+      <ul class="loginnav">
+        <li>
+        <a href="{% url socialauth_begin 'twitter' %}?next={{ next }}"><img src="{{ STATIC_URL }}img/login_t.png"></a>
+        </li>
+        <li>
+        <a href="{% url socialauth_begin 'facebook' %}?next={{ next }}"><img src="{{ STATIC_URL }}img/login_f.png"></a>
+        </li>
+        <li>
+        <a href="{% url socialauth_begin 'google-oauth2' %}?next={{ next }}"><img src="{{ STATIC_URL }}img/login_g.png"></a>
+        </li>
+      </ul>
+    </div><!-- /left-side span6 -->
+    <div class="span6" id="form2">
+      <h3 id="login_title">Log in with SHIRItori account</h3>
+      <p style="cursor: hand;" class="pull-right" onclick="create();" id="change_msg"><strong style="color: #f89406;">Create a new SHIRItori account?</strong>&nbsp;<i class="icon-chevron-down"></i></p>
+      <form class="form-horizontal login-form" action="/login-form/" method="post">
+        {% csrf_token %}
+        <fieldset>
+        {{ form2.as_bootstrap_horizontal }}
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="login_btn">Log in</button>
+        </div>
+        <input type="hidden" name="event" id="event" value="login">
+        <input type="hidden" name="next" value="{{ next }}">
+        </fieldset>
+      </form>
+    </div><!-- /right-side span6 form2 -->
+    <div class="span6" id="form1" style="display: none;">
+      <h3 id="login_title">Create a new account</h3>
+      <p style="cursor: hand;" class="pull-right" onclick="create();" id="change_msg"><strong>Log in with SHIRItori account?</strong>&nbsp;<i class="icon-chevron-up"></i></p>
+      <br class="clear" />
+      <form class="form-horizontal login-form" action="/login-form/" method="post">
+        {% csrf_token %}
+        <fieldset>
+        {{ form1.as_bootstrap_horizontal }}
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="login_btn">Create a new account</button>
+        </div>
+        </fieldset>
+        <input type="hidden" name="event" id="event" value="new">
+        <input type="hidden" name="next" value="{{ next }}">
+      </form>
+    </div><!-- /right-side span6 form1 -->
+  </div><!-- /row -->
+</div><!-- /new-game -->
+{% endblock container %}
+
+{% block custom_js %}
+<script type="text/javascript">
+$(document).ready(function() {
+  // call create() function to show the create new account window
+  if ('{{ event }}' == 'new') {
+    create();
+  }
+});
+function create() {
+  if (document.getElementById('form1').style.display == 'none') {
+    // login form(form2) -> create user form(form1)
+    document.getElementById('event').value = 'new';
+    document.getElementById('form1').style.display = 'block';
+    document.getElementById('form2').style.display = 'none';
+  } else {
+    // create user form(form1) -> login form(form2)
+    document.getElementById('event').value = 'login';
+    document.getElementById('form1').style.display = 'none';
+    document.getElementById('form2').style.display = 'block';
+  }
+}
+</script>
+{% endblock custom_js %}
